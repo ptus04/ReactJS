@@ -4,7 +4,7 @@ import Bai1 from "./Bai1";
 function App() {
   return (
     <>
-      
+      <Bai1 />
     </>
   );
 }

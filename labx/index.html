@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        font-size: 12px;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        color: #efafc9;
+        border: none;
+        background-color: #ffeff5;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #efefef;
+        padding: 0.25rem 0.5rem;
+        color: #646464;
+      }
+
+      header div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      h1 {
+        margin: 0;
+        color: #f54985;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      ul {
+        display: flex;
+        gap: 1rem;
+        padding: 0;
+      }
+
+      li {
+        list-style-type: none;
+      }
+
+      .filter {
+        flex-wrap: wrap;
+        width: 250px;
+        justify-content: stretch;
+      }
+
+      .filter > li {
+        display: flex;
+        align-items: center;
+        flex: 1 0 40%;
+      }
+
+      input[type="checkbox"]:checked {
+        accent-color: #f54985;
+      }
+
+      .avatar {
+        aspect-ratio: 1;
+        height: 36px;
+        background-color: #ffeff5;
+        border-radius: 50%;
+      }
+
+      .txt-search {
+        position: relative;
+        background-color: #efefef;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+      }
+
+      details {
+        padding: 1rem;
+        border-bottom: 1px solid #efefef;
+      }
+
+      summary {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      summary::after {
+        content: ">";
+        color: #f54985;
+        rotate: 90deg;
+        font-size: 1.5rem;
+      }
+
+      details[open] > summary::after {
+        content: ">";
+        rotate: -90deg;
+      }
+
+      aside {
+        padding: 1rem;
+        border: 1px solid #efefef;
+        border-radius: 8px;
+        width: 300px;
+      }
+
+      main {
+        margin-top: 2rem;
+      }
+
+      .rating {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .rating label {
+        font-size: 2rem;
+        color: rgb(206, 206, 57);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <div>
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAe1BMVEX///8AAACsrKzv7+/q6uqjo6NgYGC5ubnPz89XV1eoqKgoKCjMzMwsLCzJycmIiIj5+fnk5OR3d3dBQUHBwcFLS0tRUVGCgoLb29s8PDyOjo5GRkbY2Nju7u5oaGiTk5MzMzMaGhqbm5txcXEPDw8fHx90dHQ3Nzdra2v2X0xAAAAJkUlEQVR4nO2d2WKqMBCGDe7WIlqt1rprl/d/wmNICFkGCQFK8Mx/ZWOg+cgykyGJnQ4KhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUJ5qDW57ZouQ636IISsmi5EjYpeyHMTdkmsYdPlqE1zBjhruhy1accAr02XozaFDHDQdDlq05ABfjZdjtrUZ4CnpsvxWPOe86VbBniOKixO5erd6Di4d7p2wQBJV0v0y7v5YoVcO1x64IByG4hO94T3qgpXhZYk0ajope/8wo2U1j0T3wgXgpBsi135AzyZHksKKy1iSa1SQjIucF3EWzdZSokblnSpupClJBOSN+vL9sklgZQ4cu/SNepAXBDnyQVydfEu/VtHMUtoRhwQd0l2ubqC4k39TzQkxRHDJLNcXReW5J/7tieFEcVDkauLt4XX+krqrJ+iiH0o45Ul3RT37eqHd9PXCXMQt0k2ubrGPE123+LQhg+9MjIIHyKKByJX1ydPk923PfV3/Zg2HoogjkSetLqiV54ku2/cnkxrLLi1NiZhNqLIkVZX90ZMGm5P+nUW3F5jkzAL8Zh8n44gvSRJDrVxe1LQ061NUCXCiKLPrs2LJ1I+bk8WdZfcWkBPhBHTcffIU6Z6gpTNi1GGqQsRQoiS7WREYnYpu2/cnng1SbyAiIYDphgWijhJ/pDdNz7j/Pm74tvoxQoxVL7dpuOOXF0DlvT1l8W3EDjYGIhaVYuppdyek9CGd9E3uJ1qiGs404uUJemp7gHK2vRhgfgN50mrS4Q25n9e/nwB7qmBuABzpO6bMP6Fw3Z/oilYfAVxBn2fVpcIbSyB2/ugI1R+BdGcaMmGUIQ2AujuXgh0bWREsJoT31MYf79iiapOeYjgtwxRhDY8iyWqyhptBCI0C2GIogF7/irYCEtpiHpgTiCKMciHqMVDZfg24hVoxrdv4kOThbfTLoOBzf4GWQ+Ay8dYoqERWHRmAPIAb945o6CgWrQDVF8FeyyzL1oC+uiMwpprJbcE3OTc1iexV9XFAM8ezpceSZpL2QH6E1az1fUx4Jv657hNLTTR5BFg2Nmtk0g3+dq2Z4hRtHsESLWfDvvBcNQWEwFpnAHo6wTXQSwY8cSATP8nYNQOB9RKcA2+fTRcrOoEA376uKjEQeFbNiBFPExybuC7gMCaBBjL37ChjTIB5aV+bUa0AmwzYmgH2F5Ea8C2ImYCQkGcNiJmA4IB1fYhPgJ8CkQAUIlkA2+o2oUIACqvW8C3jG1CBAGVYL05nLYKMR+w5Yg2gK1GtANsMaItYGsR7QEzEH2fLxYBbCViMcB0hV5rEIsCtg6xOGDLEF0AW4XoBtgiRFfA1iC6A7YEsQxgKxDLAbYAsSyg94jlAT1HrALQa8RqAD1GBJdtOy2gBBGbny/qy9fcATMQG98hC+2ScV4CC64Ar7K0DoLWkZZY4wshNnxEHbCXq9QiZgCx4eV85ka0kqu0TcSGd5Ea27RKL0M3EBsm1FtpBevsdcSGt89sKgc0EJteIPZeOaCGeK7mnu7aVw+oIjZ/ckvq1FS4szxdRtV0G+10lr/JAy+1Y3C5eCXkYyGOaOO7v8bS2v3d7O4/vf7+uaNKV3JvwklQatPu/CwaOj96MbazS2ltdJS23Fo81e7w8jv++ToNZkNtwTk9m8vtQMhUsuvH15zGn+XNF1KWGs7iCxT3+kU5LiYg5bfNx+1xuu9uLsL4xf9JenK0Bl+Hve48eKl+cAVcT+kIkgoI6c5RfkBylEDRxi85pNTsJms5qt61sEm2/68W69n6wPdH3MS/qYDw834/I3HXlxvjsYKWkiE+ps2EVdoHJ6W7V0BI8s+4HtS275K1UC1YMo1HPv5HeUK6MzrPBPzUtfk5PsTw3VxSf033QZYnpCf35M1yX2qaJsZu9Tf0zUVAtZuQtsZDTp5qWmmeb/ZaDyHthKe8TIIwGq7HH6f3734Gby9YD1bvh6Nir7ez2Yy6LwP64S7RH+f3gZuNbsE9eXsfwj94lm24WC8gixEs1kWnkrSN5hofTtiVJvsrYDowTdfmk23asXVDK1rMVDTdq54nyug6pPDJbkFWJwQIA7UQ+rOMtEmt6HaZhKNswjjFHP36YOpDrax6GGWL4sWUX4tjcJmxA5DUM3LZmTofl+EoDFhdJw87mEwmtGgH+uEu0R9TwvCeHJzvczOeZRIPgMeOrlvhrkobg8XGJEpIAQ9Je57H9SWb0Pggt0/FC5LbU0SA1xMpYaxX5awM+uz1C+ixLwX9OdoTLI5kDLR21+EzH6nBvGo9pEtPPUsHnC70jzTCF4WQvgvSfYS34ueF0MZjMRNjhOqEZqWUuW8OATe5EooT0jPutZPc6ASs6BSV1oTF7twAGFnkmUA8muiHlWzkhulAGBhP/+DguH7bjU0BAfJ9SHUUBwGgmyefHQjpU1MCxTZ+kaEr0J0BBQTwe7ZSt19BA9ZGwnYhPGrjysyusKoW9nVozAzonCsx+wSMUUlULoR0/JVtA/xPcjSzMocxodHFwzRxAw8Bg7SELoTa858Ut/a86BbBygCyQ6N0JKB26n2g6yAZOCfCuVJrN6e3GzvQczAEzi0kwoxjryR3wokwDk0ln5d2zc0QsXpnkEe4rIlQzuBg7WMdiM1LgzzCae5d3Aipp8QtYEZXz9dSNzqg8gh70FiryJFwKP7Hr/MvRX3ZjDV5hB3IXipyJKQ3HifXO65mGELuiq5cwly76kp44aP41sXac1EPOs/byyWknx8O5a6EidWHLrdVPLE7QRXwLlpvLmHspD4aCFwJ47lBFBfgwd1zxI7OM4rXPaXzpXzCOCapOQVr6aR1Z8JebPVv5X4Vklmzq4rAAuH8j3xCll8eC6KBPGN0JqSu342WsNTbPf5qbzBMKEbsCM6XhzFvlZAtuvlJGnYvjuqkr8TdCXnh8kK6OYrEnuTT5+rtzD+nLxFsCJNtvz+H7+uAvb2SyutOyJcNll7LIIc6mT6le1oRdjba0bsyUQnCuBNVcY7PTl69dt4qM/YJREhdNe1d9DRdXnFSefYEmNxNVcJbxu8E0zZV0WqNXtg/brfHfqiHbnrhNDTsSfeeaMZ4dsP+8TIxv7hnNp5RpN5hFIZgW/yFXq4+k2gD92EleH0q47C1QtRv8+VnduqRZbCsdRolUDTe9ZQ/453Yh4A8aS+kTfP2vf4lgEP/HBK/LFSFv+an5omn/PuMowzXNOgHpieFQqFQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUKhUKhn0D/MbGZLyYpsbwAAAABJRU5ErkJggg=="
+            alt=""
+            style="aspect-ratio: 1; height: 50px"
+          />
+          <h1>Chefify</h1>
+        </div>
+        <input class="txt-search" type="text" placeholder="cakescascsa" />
+      </div>
+      <div>
+        <ul>
+          <li>What to cook</li>
+          <li>Recipes</li>
+          <li>Ingredients</li>
+          <li>Occasions</li>
+          <li>About Us</li>
+        </ul>
+        <div>
+          <button>
+            <img
+              src="https://media.istockphoto.com/id/1352409935/vector/delivery-box-with-plus-sign-line-icon-add-to-cart-symbol-online-shopping-ordering-concept.jpg?s=170667a&w=0&k=20&c=AohTF-j59lSGuDsooXF6R1tLjcFwLUidRl9Cq16-49k="
+              alt=""
+              style="aspect-ratio: 1; width: 24px"
+            />
+            Your Recipe Box
+          </button>
+          <img
+            class="avatar"
+            src="https://api.dicebear.com/7.x/pixel-art/svg"
+            alt=""
+          />
+        </div>
+      </div>
+    </header>
+
+    <main style="display: flex">
+      <aside>
+        <h3>&equiv; FILTERS</h3>
+        <details open>
+          <summary><h4>Type</h4></summary>
+          <ul class="filter">
+            <li><input type="checkbox" /> <label for="">Pan-fired</label></li>
+            <li><input type="checkbox" /> <label for="">Stir-fired</label></li>
+            <li>
+              <input type="checkbox" checked /> <label for="">Grilled</label>
+            </li>
+            <li>
+              <input type="checkbox" checked /> <label for="">Roasted</label>
+            </li>
+            <li><input type="checkbox" /> <label for="">Sauteed</label></li>
+            <li><input type="checkbox" /> <label for="">Baked</label></li>
+            <li><input type="checkbox" /> <label for="">Steamed</label></li>
+            <li><input type="checkbox" /> <label for="">Stewed</label></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary><h4>Time</h4></summary>
+          <div style="position: relative">
+            <input type="range" min="10" max="70" value="50" />
+          </div>
+        </details>
+
+        <details open>
+          <summary><h4>Rating</h4></summary>
+          <ul class="rating">
+            <li><input type="checkbox" /> <label for="">★ ★ ★ ★ ★</label></li>
+            <li><input type="checkbox" /> <label for="">★ ★ ★ ★ ☆</label></li>
+            <li>
+              <input type="checkbox" checked /> <label for="">★ ★ ★ ☆ ☆</label>
+            </li>
+            <li>
+              <input type="checkbox" checked /> <label for="">★ ★ ☆ ☆ ☆</label>
+            </li>
+            <li>
+              <input type="checkbox" checked /> <label for="">★ ☆ ☆ ☆ ☆</label>
+            </li>
+          </ul>
+        </details>
+
+        <button
+          style="
+            width: 100%;
+            justify-content: center;
+            background-color: #f54985;
+            color: white;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+          "
+        >
+          Apply
+        </button>
+      </aside>
+      <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+        <h2>Sorry, no results were found for "cakescascsa"</h2>
+        <img style="width: 250px;" src="https://cdn-icons-png.freepik.com/512/7465/7465691.png" alt="">
+        <p>We have all your Independence Day sweets covered</p>
+        <div style="display: flex; gap: 1rem;">
+            <button style="background: rgb(255, 192, 203); border-radius: 16px; color: rgb(243, 44, 77);">Sweet Cake</button>
+            <button style="background: rgb(223, 163, 223); border-radius: 16px; color: rgb(145, 8, 145);">Black Cake</button>
+            <button style="background: rgb(255, 192, 203); border-radius: 16px; color: rgb(243, 44, 77);">Pozole Verde</button>
+            <button style="background: rgb(157, 226, 157); border-radius: 16px; color: rgb(5, 95, 5)">Healthy Food</button>
+        </div>
+    </div>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>

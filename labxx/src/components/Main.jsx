@@ -1,6 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import styles from "../css/Main.module.css";
+import BlankResult from "./main/BlankResult";
 
 export default function Main() {
+  const [data, setData] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
@@ -9,31 +13,21 @@ export default function Main() {
 
       const json = await res.json();
       console.log(json);
+      setData(json);
     };
 
     fetchData();
   }, []);
 
-  const data = {
-    meals: [
-      {
-        strMeal: "15-minute chicken & halloumi burgers",
-        strMealThumb:
-          "https://www.themealdb.com/images/media/meals/vdwloy1713225718.jpg",
-        idMeal: "53085",
-      },
-    ],
-  };
-
   return (
-    <main style={{ display: "flex" }}>
+    <main>
       <aside>
         <h3>&equiv; FILTERS</h3>
         <details open>
           <summary>
             <h4>Type</h4>
           </summary>
-          <ul className="filter">
+          <ul className={styles.filter}>
             <li>
               <input type="checkbox" /> <label>Pan-fired</label>
             </li>
@@ -66,8 +60,14 @@ export default function Main() {
             <h4>Time</h4>
           </summary>
           <div style={{ position: "relative" }}>
-            <input type="range" min="10" max="70" defaultValue="50" />
-            <input type="range" min="10" max="70" defaultValue="60" />
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <input type="range" min="10" max="70" defaultValue="50" />
+              <label>50</label>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <input type="range" min="10" max="70" defaultValue="60" />
+              <label>60</label>
+            </div>
           </div>
         </details>
 
@@ -75,7 +75,7 @@ export default function Main() {
           <summary>
             <h4>Rating</h4>
           </summary>
-          <ul className="rating">
+          <ul className={styles.rating}>
             <li>
               <input type="checkbox" /> <label>★ ★ ★ ★ ★</label>
             </li>
@@ -94,96 +94,27 @@ export default function Main() {
           </ul>
         </details>
 
-        <button
-          style={{
-            width: 100,
-            justifyContent: "center",
-            backgroundColor: "#f54985",
-            color: "white",
-            borderRadius: 4,
-            padding: "0.5rem 1rem",
-          }}
-        >
+        <button className="primary" style={{ width: "100%" }}>
           Apply
         </button>
       </aside>
 
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          flex: 1,
-        }}
-      >
-        <h2>Sorry, no results were found for "cakescascsa"</h2>
-        <img
-          style={{ width: 250 }}
-          src="https://cdn-icons-png.freepik.com/512/7465/7465691.png"
-          alt=""
-        />
-        <p>We have all your Independence Day sweets covered</p>
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <button
-            style={{
-              background: "rgb(255, 192, 203)",
-              borderRadius: 16,
-              color: "rgb(243, 44, 77)",
-            }}
-          >
-            Sweet Cake
-          </button>
-          <button
-            style={{
-              background: "rgb(223, 163, 223)",
-              borderRadius: 16,
-              color: "rgb(145, 8, 145)",
-            }}
-          >
-            Black Cake
-          </button>
-          <button
-            style={{
-              background: "rgb(255, 192, 203)",
-              borderRadius: 16,
-              color: "rgb(243, 44, 77)",
-            }}
-          >
-            Pozole Verde
-          </button>
-          <button
-            style={{
-              background: "rgb(157, 226, 157)",
-              borderRadius: 16,
-              color: "rgb(5, 95, 5)",
-            }}
-          >
-            Healthy Food
-          </button>
-        </div>
-      </div> */}
-
-      <ul
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: "0.5rem 1rem",
-          flex: 1,
-          margin: 0,
-        }}
-      >
-        {data.meals.map((meal, i) => (
-          <li key={i}>
-            <img
-              style={{ aspectRatio: 1, width: 100 }}
-              src={meal.strMealThumb}
-              alt=""
-            />
-            <p>{meal.strMeal}</p>
-            <p style={{ color: "hsl(0, 0%, 75%)" }}>ID: {meal.idMeal}</p>
-          </li>
-        ))}
-      </ul>
+      {data ? (
+        <ul className={styles.list}>
+          {data.meals.map((meal, i) => (
+            <li key={i} className={styles.item}>
+              <img src={meal.strMealThumb} alt="Meal Thumbnail" />
+              <p style={{ minHeight: "3rem" }}>{meal.strMeal}</p>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <button className="link">Read more</button>
+                <button className="primary">Add to cart</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <BlankResult />
+      )}
     </main>
   );
 }

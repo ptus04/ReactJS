@@ -3,7 +3,7 @@
 }
 
 :root {
-  font-size: 1vw;
+  font-size: clamp(14px, 1vw, 16px);
 }
 
 body {
@@ -13,13 +13,11 @@ body {
 button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  color: #efafc9;
   border: none;
-  background-color: #ffeff5;
-  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -29,90 +27,31 @@ h1 {
   font-size: 1.5rem;
 }
 
-h3 {
-  margin-top: 0;
-}
-
-h4 {
-  margin: 0;
-}
-
 ul {
   display: flex;
   gap: 1rem;
   padding: 0;
+  margin: 0;
 }
 
 li {
   list-style-type: none;
 }
 
-.filter {
-  flex-wrap: wrap;
-  width: 250px;
-  justify-content: stretch;
-}
-
-.filter > li {
-  display: flex;
-  align-items: center;
-  flex: 1 0 40%;
-}
-
-input[type="checkbox"]:checked {
-  accent-color: #f54985;
-}
-
-
-
-.txt-search {
-  position: relative;
-  background-color: #efefef;
-  padding: 0.5rem 1rem;
+button.primary {
+  color: #ffeff5;
+  background-color: #f54985;
   border: none;
   border-radius: 8px;
 }
 
-details {
-  padding: 1rem;
-  border-bottom: 1px solid #efefef;
-}
-
-summary {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-
-summary::after {
-  content: ">";
+button.link {
   color: #f54985;
-  rotate: 90deg;
-  font-size: 1.5rem;
-}
-
-details[open] > summary::after {
-  content: ">";
-  rotate: -90deg;
-}
-
-aside {
-  padding: 1rem;
-  border: 1px solid #efefef;
-  border-radius: 8px;
-  width: 300px;
-}
-
-main {
-  margin-top: 2rem;
-}
-
-.rating {
-  display: flex;
-  flex-direction: column;
-}
-
-.rating label {
-  font-size: 2rem;
-  color: rgb(206, 206, 57);
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }

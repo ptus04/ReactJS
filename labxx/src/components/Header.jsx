@@ -12,7 +12,7 @@ export default function Header() {
           <h1>Chefify</h1>
         </div>
         <div className={styles.searchBar}>
-          <span>&#128270;</span>
+          <button className={styles.btnSearch}><span>&#128270;</span></button>
           <input className="txt-search" type="text" placeholder="cakescascsa" />
         </div>
       </div>
@@ -38,7 +38,7 @@ export default function Header() {
       </div>
 
       <div>
-        <button>
+        <button className={styles.btnCart}>
           <img src="cart.png" alt="" style={{ aspectRatio: 1, width: 16 }} />
           Your Recipe Box
         </button>

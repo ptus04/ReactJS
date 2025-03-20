@@ -28,7 +28,7 @@ const TodoItem = React.memo(
           />
           <label
             htmlFor={`todo-${id}`}
-            className={`ms-1 ${isDone ? "line-through" : ""}`}
+            className={`ms-1 ${!isDone || "line-through"}`}
           >
             {children}
           </label>

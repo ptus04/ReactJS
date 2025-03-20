@@ -46,7 +46,7 @@ function App() {
   );
 
   const handleCheckTodo = useCallback(
-    (index) => dispatch({ type: "CHECK_TODO", index }),
+    (index) => dispatch({ type: "CHECK", index }),
     [dispatch],
   );
 
@@ -80,27 +80,25 @@ function App() {
 
       <TodoInput ref={input} onKeyDown={handleInputEnter} />
 
-      <div>
-        {todos.length ? (
-          <ul className="flex flex-col gap-2">
-            {todos.map((todo, index) => (
-              <TodoItem
-                key={index}
-                id={index}
-                onCheck={handleCheckTodo}
-                onEdit={handleEditTodo}
-                onDelete={handleDeleteTodo}
-                isDeleteDisabled={editing === index}
-                isDone={todo.isDone}
-              >
-                {todo.text}
-              </TodoItem>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-center">No todos</p>
-        )}
-      </div>
+      {todos.length ? (
+        <ul className="flex flex-col gap-2">
+          {todos.map((todo, index) => (
+            <TodoItem
+              key={index}
+              id={index}
+              onCheck={handleCheckTodo}
+              onEdit={handleEditTodo}
+              onDelete={handleDeleteTodo}
+              isDeleteDisabled={editing === index}
+              isDone={todo.isDone}
+            >
+              {todo.text}
+            </TodoItem>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-center">No todos</p>
+      )}
     </div>
   );
 }

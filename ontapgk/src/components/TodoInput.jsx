@@ -16,10 +16,10 @@ export default function TodoInput({ ref, onKeyDown }) {
         />
       </svg>
       <input
+        ref={ref}
         className="w-full outline-none"
         type="text"
         placeholder={"Add a task..."}
-        ref={ref}
         onKeyDown={onKeyDown}
       />
     </div>

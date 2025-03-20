@@ -66,9 +66,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => setDateTime(new Date()), 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (

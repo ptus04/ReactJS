@@ -8,7 +8,7 @@ const initialState = [];
 const reducer = (todos, { type, index, text }) => {
   switch (type) {
     case "CREATE":
-      return [...todos, { text, isDone: false }];
+      return [{ text, isDone: false }, ...todos];
     case "CHECK":
       return todos.map((todo, i) =>
         i === index ? { ...todo, isDone: !todo.isDone } : todo,
@@ -25,24 +25,24 @@ const reducer = (todos, { type, index, text }) => {
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialState);
   const [dateTime, setDateTime] = useState(new Date());
+  const [editing, setEditing] = useState(-1);
   const input = useRef();
-  const editing = useRef(-1);
 
   const handleInputEnter = useCallback(
     ({ key }) => {
       if (key === "Enter") {
         const text = input.current.value;
 
-        if (editing.current === -1) dispatch({ type: "CREATE", text });
+        if (editing === -1) dispatch({ type: "CREATE", text });
         else {
-          dispatch({ type: "UPDATE", index: editing.current, text });
-          editing.current = -1;
+          dispatch({ type: "UPDATE", index: editing, text });
+          setEditing(-1);
         }
 
         input.current.value = "";
       }
     },
-    [dispatch],
+    [dispatch, editing],
   );
 
   const handleCheckTodo = useCallback(
@@ -52,7 +52,7 @@ function App() {
 
   const handleEditTodo = useCallback(
     (index) => {
-      editing.current = index;
+      setEditing(index);
       input.current.value = todos[index].text;
     },
     [todos],
@@ -90,7 +90,7 @@ function App() {
                 onCheck={handleCheckTodo}
                 onEdit={handleEditTodo}
                 onDelete={handleDeleteTodo}
-                isDeleteDisabled={editing.current === index}
+                isDeleteDisabled={editing === index}
                 isDone={todo.isDone}
               >
                 {todo.text}

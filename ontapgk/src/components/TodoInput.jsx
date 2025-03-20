@@ -1,4 +1,6 @@
-export default function TodoInput({ ref, onKeyDown }) {
+import React from "react";
+
+const TodoInput = React.memo(({ ref, onKeyDown }) => {
   return (
     <div className="border-1 flex w-full gap-1 rounded-md px-3 py-1">
       <svg
@@ -24,4 +26,6 @@ export default function TodoInput({ ref, onKeyDown }) {
       />
     </div>
   );
-}
+});
+
+export default TodoInput;
